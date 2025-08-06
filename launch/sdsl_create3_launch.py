@@ -1,8 +1,30 @@
-from better_launch import BetterLaunch, launch_this
+from launch_ros.substitutions import FindPackageShare
 
-@launch_this
-def create3_launch():
-    bl = BetterLaunch()
+from launch import LaunchDescription
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import PathJoinSubstitution, TextSubstitution
 
-    bl.include("create3_lidar_slam", "sensors_launch.py")
-    # bl.include("create3_lidar_slam", "slam_toolbox_launch.py")
+def generate_launch_description():
+    ld = []
+
+    ld.append(IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            PathJoinSubstitution([
+                FindPackageShare('create3_lidar_slam'),
+                'launch',
+                'sensors_launch.py'
+            ])
+        ])
+    ))
+    ld.append(IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            PathJoinSubstitution([
+                FindPackageShare('create3_lidar_slam'),
+                'launch',
+                'slam_toolbox_launch.py'
+            ])
+        ])
+    ))
+
+    return LaunchDescription(ld)
