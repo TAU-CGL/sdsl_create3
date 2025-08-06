@@ -1,4 +1,5 @@
 from launch_ros.substitutions import FindPackageShare
+from launch_ros.actions import Node
 
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription
@@ -37,5 +38,11 @@ def generate_launch_description():
         launch_arguments={'joy_config': 'ps5'}.items()
     ))
 
-
+    # Launch the R3 horn node
+    ld.append(Node(
+        package='sdsl_create3',
+        executable='r3_horn',
+        name='r3_horn_node',
+    ))
+    
     return LaunchDescription(ld)
