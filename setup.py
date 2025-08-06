@@ -23,6 +23,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'r3_horn = sdsl_create3.r3_horn:main',
         ],
     },
 )
