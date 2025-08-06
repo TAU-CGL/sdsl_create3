@@ -26,5 +26,16 @@ def generate_launch_description():
             ])
         ])
     ))
+    ld.append(IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            PathJoinSubstitution([
+                FindPackageShare('teleop_twist_joy'),
+                'launch',
+                'teleop-launch.py'
+            ])
+        ]),
+        launch_arguments={'joy_config': 'ps5'}.items()
+    ))
+
 
     return LaunchDescription(ld)
