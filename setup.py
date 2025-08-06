@@ -4,7 +4,7 @@ package_name = 'sdsl_create3'
 
 setup(
     name=package_name,
-    version='0.0.0',
+    version='0.1.0',
     packages=find_packages(exclude=['test']),
     data_files=[
         ('share/ament_index/resource_index/packages',
@@ -13,9 +13,9 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='ubuntu',
-    maintainer_email='ubuntu@todo.todo',
-    description='TODO: Package description',
+    maintainer='Michael Bilevich',
+    maintainer_email='mickelbil84@gmail.com',
+    description='iRobot Create3 launch/driver for SDSL',
     license='MIT',
     tests_require=['pytest'],
     entry_points={
