@@ -1,18 +1,17 @@
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
-import LePotatoPi.GPIO.GPIO as GPIO
+from gpiozero import PWMOutputDevice
 
-BUZZER_PIN = 13
+BUZZER_PIN = 14
+BUZZER_FREQ = 460
 JOYPAD_BUTTON_INDEX = 12
 
 class HornNode(Node):
     def __init__(self):
         super().__init__('horn_node')
 
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(BUZZER_PIN, GPIO.OUT)
-        GPIO.output(BUZZER_PIN, GPIO.LOW)
+        self.buzzer = PWMOutputDevice(BUZZER_PIN, frequency=BUZZER_FREQ)
 
         self.subscription = self.create_subscription(
             Joy,
@@ -24,15 +23,14 @@ class HornNode(Node):
 
     def joy_callback(self, msg: Joy):
         if len(msg.buttons) > JOYPAD_BUTTON_INDEX and msg.buttons[JOYPAD_BUTTON_INDEX] == 1:
-            GPIO.output(BUZZER_PIN, GPIO.HIGH)
+            self.buzzer.value = 0.5
             self.get_logger().debug("R3 pressed → buzzer ON")
         else:
-            GPIO.output(BUZZER_PIN, GPIO.LOW)
+            self.buzzer.value = 0
             self.get_logger().debug("R3 released → buzzer OFF")
     
     def destroy_node(self):
-        GPIO.output(BUZZER_PIN, GPIO.LOW)
-        GPIO.cleanup()
+        self.buzzer.value = 0
         super().destroy_node()
 
 
