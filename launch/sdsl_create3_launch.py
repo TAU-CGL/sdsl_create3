@@ -44,5 +44,12 @@ def generate_launch_description():
         executable='r3_horn',
         name='r3_horn_node',
     ))
-    
+
+    # Launch the sparse distance sampling (SDS) node
+    ld.append(Node(
+        package='sdsl_create3',
+        executable='sds_publisher',
+        name='sds_publisher_node',
+    ))
+
     return LaunchDescription(ld)
