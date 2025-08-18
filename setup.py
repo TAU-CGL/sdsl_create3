@@ -24,6 +24,7 @@ setup(
     entry_points={
         'console_scripts': [
             'r3_horn = sdsl_create3.r3_horn:main',
+            'sds_publisher = sdsl_create3.sds_publisher:main'
         ],
     },
 )
