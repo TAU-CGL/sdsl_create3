@@ -29,8 +29,8 @@ class SDSPublisher(Node):
         sparse_msg.angle_min = msg.angle_min
         sparse_msg.angle_max = msg.angle_max
         sparse_msg.angle_increment = (msg.angle_max - msg.angle_min) / k
-        sparse_msg.time_increment = 0
-        sparse_msg.scan_time = 0
+        sparse_msg.time_increment = 0.0
+        sparse_msg.scan_time = 0.0
         sparse_msg.range_min = msg.range_min
         sparse_msg.range_max = msg.range_max
         sparse_msg.ranges = msg.ranges[::len(msg.ranges) // k]
