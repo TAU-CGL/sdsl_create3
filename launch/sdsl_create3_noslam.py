@@ -43,4 +43,7 @@ def generate_launch_description():
         name='sds_publisher_node',
     ))
 
+    # If there is no slam, also publish the map
+
+
     return LaunchDescription(ld)
