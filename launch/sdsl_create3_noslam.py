@@ -44,6 +44,14 @@ def generate_launch_description():
     ))
 
     # If there is no slam, also publish the map
-
+    ld.append(IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            PathJoinSubstitution([
+                FindPackageShare('sdsl_ros2'),
+                'launch',
+                'map_publisher.launch.py'
+            ])
+        ])
+    ))
 
     return LaunchDescription(ld)
