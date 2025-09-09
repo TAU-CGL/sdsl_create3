@@ -1,17 +1,16 @@
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
-from gpiozero import PWMOutputDevice
+from gpiozero import DigitalOutputDevice
 
-BUZZER_PIN = 14
-BUZZER_FREQ = 460
+BUZZER_PIN = 13
 JOYPAD_BUTTON_INDEX = 12
 
 class HornNode(Node):
     def __init__(self):
         super().__init__('horn_node')
 
-        self.buzzer = PWMOutputDevice(BUZZER_PIN, frequency=BUZZER_FREQ)
+        self.buzzer = DigitalOutputDevice(BUZZER_PIN)
 
         self.subscription = self.create_subscription(
             Joy,
@@ -23,10 +22,10 @@ class HornNode(Node):
 
     def joy_callback(self, msg: Joy):
         if len(msg.buttons) > JOYPAD_BUTTON_INDEX and msg.buttons[JOYPAD_BUTTON_INDEX] == 1:
-            self.buzzer.value = 0.5
+            self.buzzer.on()
             self.get_logger().debug("R3 pressed → buzzer ON")
         else:
-            self.buzzer.value = 0
+            self.buzzer.off()
             self.get_logger().debug("R3 released → buzzer OFF")
     
     def destroy_node(self):
