@@ -2,3 +2,47 @@
 iRobot Create3 ROS node for companion Raspberry Pi for the SDSL (Sparse Distance Sampling Localization) project.
 
 This package depends also on the iRobot Create3 examples: [https://github.com/iRobotEducation/create3_examples](https://github.com/iRobotEducation/create3_examples)
+
+## Introduction
+
+The SDSL method was originally presented on ICRA 2023, with subsequent papers also in 2025 & 2026.
+We solve the kidnapped robot problem. That is, we assume the map of the environment is known; we strive to find the robot's location using merely k (~16) distance measurements and the robot's odometry. 
+Localization should be robust even in the face of unforeseen obstacles or changes in the environment, so long that the majority of the k distance samples correspond to features in the prior map of the environment.
+
+This repository should contain everything to recreate the physical demonstration of the SDSL approach on an iRobot Create 3.
+
+In this project, we support three modes for the robot:
+    * Mapping - This mode should be used ideally only once, to capture a (rough) map of the environment.
+    * Localization - Start the localization of the robot. Publishes a pose with covariance, either by the SDSL method or other baselines we compare to in our papers. 
+    * Navigation - The robot can navigate to any other pose in the envrionment upon demand. Whenever the pose is uncertain, the robot first moves and gathers further measurements autonomously until it converges to a certain pose.
+
+### Related Repositories
+
+The current repository ([https://github.com/TAU-CGL/sdsl_create3](sdsl_create3)) contains only a useful launchfile, specifically for the iRobot Create 3 robot, and a dockerfile that sets up the demo.
+The [https://github.com/TAU-CGL/sdsl](sdsl) library is a C++ header-only implementation of the method, with Python bindings. It can be used in wider contexts (for different kinds of robots), and is detached from the ROS ecosystem.
+The [https://github.com/TAU-CGL/sdsl_ros2](sdsl_ros2) repository is the ROS2 wrapper of the SDSL technique and should be general for any planar robot, regradless of its type, so long it publishes and reads the correct topics.
+As mentioned above, the dockerfile automatically fetches both of these repositories automatically.
+
+## Hardware
+
+The required hardware for out demonstration is as follows:
+
+    * iRobot Create 3
+    * SLAMTEC RPLIDAR C1
+    * A 3D printed mount for the LiDAR (`misc/RPLIDAR_C1_mount_v2.stl`)
+    * 4x M2 screws (to attach the LiDAR to the mount)
+    * 4x M3 screws (to attach the mount to the robot's base)
+    * Raspberry Pi 5
+        * In the past, we have used RPi4 which was significantly slower, but could run natively the correct version of Ubuntu
+        * We have used the RPi5 model with 4GB of RAM and a 32GB microSD card
+
+## Firmware
+
+In this demonstration we have used the following firmware versions:
+
+    * ROS2 - Humble
+    * iRobot Create 3 - H.2.6 (must be humble!)
+    * Raspberry Pi 5 - Ubuntu 24.04 LTS
+        * Note that one should use Ubuntu 22.04 for ROS2 humble, hence we use docker
+
+
