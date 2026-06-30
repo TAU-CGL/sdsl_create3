@@ -58,4 +58,5 @@ Use `build.sh` once to build the docker container. The `run.sh` opens an interac
 * `run_mapping.sh` - Starts the demo in Mapping mode
 * `run_localization.sh` - Starts the demo in Localization mode
 * `run_navigation.sh` - Starts the demo in Navigation mode
+
 See above for the description of each mode. The three scripts are created in the `Dockerfile`, and they merely call a specific ROS launchfile.
