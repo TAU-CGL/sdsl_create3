@@ -5,8 +5,8 @@ This package depends also on the iRobot Create3 examples: [https://github.com/iR
 
 ## Introduction
 
-The SDSL method was originally presented on ICRA 2023, with subsequent papers also in 2025 & 2026.
-We solve the kidnapped robot problem. That is, we assume the map of the environment is known; we strive to find the robot's location using merely k (~16) distance measurements and the robot's odometry. 
+The SDSL method was originally presented on ICRA 2023, with subsequent papers also in 2025 & 2026.\
+We solve the kidnapped robot problem. That is, we assume the map of the environment is known; we strive to find the robot's location using merely k (~16) distance measurements and the robot's odometry.\ 
 Localization should be robust even in the face of unforeseen obstacles or changes in the environment, so long that the majority of the k distance samples correspond to features in the prior map of the environment.
 
 This repository should contain everything to recreate the physical demonstration of the SDSL approach on an iRobot Create 3.
@@ -28,11 +28,13 @@ As mentioned above, the dockerfile automatically fetches both of these repositor
 
 ## Hardware
 
+<!-- TODO: Add an image of the hardware -->
+
 The required hardware for out demonstration is as follows:
 
 * iRobot Create 3
 * SLAMTEC RPLIDAR C1
-* A 3D printed mount for the LiDAR (`misc/RPLIDAR_C1_mount_v2.stl`)
+* A 3D printed mount for the LiDAR (`misc/RPLIDAR_C1_mount_v2.stl`) <!-- TODO: Upload the STL file -->
 * 4x M2 screws (to attach the LiDAR to the mount)
 * 4x M3 screws (to attach the mount to the robot's base)
 * Raspberry Pi 5
@@ -48,4 +50,12 @@ In this demonstration we have used the following firmware versions:
 * Raspberry Pi 5 - Ubuntu 24.04 LTS
     * Note that one should use Ubuntu 22.04 for ROS2 humble, hence we use docker
 
+## Running Docker
 
+After `git clone` for the current repository, enter the `docker` directory.\ 
+Make sure to add executable (`chmod +x`) to the script files `build.sh` and `run.sh`.\
+Use `build.sh` once to build the docker container. The `run.sh` opens an interactive session, from which you can run one of three scripts:
+* `run_mapping.sh` - Starts the demo in Mapping mode
+* `run_localization.sh` - Starts the demo in Localization mode
+* `run_navigation.sh` - Starts the demo in Navigation mode
+See above for the description of each mode. The three scripts are created in the `Dockerfile`, and they merely call a specific ROS launchfile.
