@@ -18,9 +18,9 @@ In this project, we support three modes for the robot:
 
 ### Related Repositories
 
-The current repository ([https://github.com/TAU-CGL/sdsl_create3](sdsl_create3)) contains only a useful launchfile, specifically for the iRobot Create 3 robot, and a dockerfile that sets up the demo.
-The [https://github.com/TAU-CGL/sdsl](sdsl) library is a C++ header-only implementation of the method, with Python bindings. It can be used in wider contexts (for different kinds of robots), and is detached from the ROS ecosystem.
-The [https://github.com/TAU-CGL/sdsl_ros2](sdsl_ros2) repository is the ROS2 wrapper of the SDSL technique and should be general for any planar robot, regradless of its type, so long it publishes and reads the correct topics.
+The current repository ([sdsl_create3](shttps://github.com/TAU-CGL/sdsl_create3)) contains only a useful launchfile, specifically for the iRobot Create 3 robot, and a dockerfile that sets up the demo.
+The [sdsl](shttps://github.com/TAU-CGL/sdsl) library is a C++ header-only implementation of the method, with Python bindings. It can be used in wider contexts (for different kinds of robots), and is detached from the ROS ecosystem.
+The [sdsl_ros2](https://github.com/TAU-CGL/sdsl_ros2) repository is the ROS2 wrapper of the SDSL technique and should be general for any planar robot, regradless of its type, so long it publishes and reads the correct topics.
 As mentioned above, the dockerfile automatically fetches both of these repositories automatically.
 
 ## Hardware
