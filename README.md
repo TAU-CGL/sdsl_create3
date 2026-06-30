@@ -26,6 +26,8 @@ The [sdsl_ros2](https://github.com/TAU-CGL/sdsl_ros2) repository is the ROS2 wra
 
 As mentioned above, the dockerfile automatically fetches both of these repositories automatically.
 
+Finally, there is the [sdsl_create3_sim](https://github.com/TAU-CGL/sdsl_create3_sim), which is a simulated version of the iRobot Create 3. The interface and everything described in this README file should hold exactly the same also for the simulation.
+
 ## Hardware
 
 <!-- TODO: Add an image of the hardware -->
@@ -38,8 +40,12 @@ The required hardware for out demonstration is as follows:
 * 4x M2 screws (to attach the LiDAR to the mount)
 * 4x M3 screws (to attach the mount to the robot's base)
 * Raspberry Pi 5
-* In the past, we have used RPi4 which was significantly slower, but could run natively the correct version of Ubuntu
+    * In the past, we have used RPi4 which was significantly slower, but could run natively the correct version of Ubuntu
     * We have used the RPi5 model with 4GB of RAM and a 32GB microSD card
+* USB C cable (to power RPi5 from the robot)
+* Some computer/laptop with Ubuntu 22.04 LTS + ROS2 humble (can be a VM. In out demo we used a VM on an M1 macBook).
+
+Note that the robot, the Raspberry Pi and the computer/VM should all be under the same WLAN, and use `fastrtps` as middleware.
 
 ## Firmware
 
@@ -60,3 +66,13 @@ Use `build.sh` once to build the docker container. The `run.sh` opens an interac
 * `run_navigation.sh` - Starts the demo in Navigation mode
 
 See above for the description of each mode. The three scripts are created in the `Dockerfile`, and they merely call a specific ROS launchfile.
+
+## Mapping Mode
+
+**Make sure that the LIDAR is mounted correctly (the robot's and LIDAR's centers should coincide. Also notice the orientation.**
+When running the `run_mapping.sh` script on the RPi5, we start the LIDAR node and SLAM. It may take a minute until the mapping starts.  
+Move the robot around the environment to gather information and build the map. You can use `teleop_twist_keyboard` from either the SSH session with the RPi or directly from the computer, or you can use a gamepad (e.g., XBOX Controller or DualShock 4).
+
+When you are done mapping, in a seperate SSH session on the RPi, run the script `scripts/save_map.sh`, which saves the map into the `~/maps` directory.
+
+You **must** rename the map files to `map.pgm` and `map.yaml` as the dockerfile copies them to the container. These represent the "known" map that is then used for localizaiton.
