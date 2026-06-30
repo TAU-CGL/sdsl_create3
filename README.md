@@ -12,9 +12,9 @@ Localization should be robust even in the face of unforeseen obstacles or change
 This repository should contain everything to recreate the physical demonstration of the SDSL approach on an iRobot Create 3.
 
 In this project, we support three modes for the robot:
-    * Mapping - This mode should be used ideally only once, to capture a (rough) map of the environment.
-    * Localization - Start the localization of the robot. Publishes a pose with covariance, either by the SDSL method or other baselines we compare to in our papers. 
-    * Navigation - The robot can navigate to any other pose in the envrionment upon demand. Whenever the pose is uncertain, the robot first moves and gathers further measurements autonomously until it converges to a certain pose.
+* Mapping - This mode should be used ideally only once, to capture a (rough) map of the environment.
+* Localization - Start the localization of the robot. Publishes a pose with covariance, either by the SDSL method or other baselines we compare to in our papers. 
+* Navigation - The robot can navigate to any other pose in the envrionment upon demand. Whenever the pose is uncertain, the robot first moves and gathers further measurements autonomously until it converges to a certain pose.
 
 ### Related Repositories
 
@@ -27,22 +27,22 @@ As mentioned above, the dockerfile automatically fetches both of these repositor
 
 The required hardware for out demonstration is as follows:
 
-    * iRobot Create 3
-    * SLAMTEC RPLIDAR C1
-    * A 3D printed mount for the LiDAR (`misc/RPLIDAR_C1_mount_v2.stl`)
-    * 4x M2 screws (to attach the LiDAR to the mount)
-    * 4x M3 screws (to attach the mount to the robot's base)
-    * Raspberry Pi 5
-        * In the past, we have used RPi4 which was significantly slower, but could run natively the correct version of Ubuntu
-        * We have used the RPi5 model with 4GB of RAM and a 32GB microSD card
+* iRobot Create 3
+* SLAMTEC RPLIDAR C1
+* A 3D printed mount for the LiDAR (`misc/RPLIDAR_C1_mount_v2.stl`)
+* 4x M2 screws (to attach the LiDAR to the mount)
+* 4x M3 screws (to attach the mount to the robot's base)
+* Raspberry Pi 5
+* In the past, we have used RPi4 which was significantly slower, but could run natively the correct version of Ubuntu
+    * We have used the RPi5 model with 4GB of RAM and a 32GB microSD card
 
 ## Firmware
 
 In this demonstration we have used the following firmware versions:
 
-    * ROS2 - Humble
-    * iRobot Create 3 - H.2.6 (must be humble!)
-    * Raspberry Pi 5 - Ubuntu 24.04 LTS
-        * Note that one should use Ubuntu 22.04 for ROS2 humble, hence we use docker
+* ROS2 - Humble
+* iRobot Create 3 - H.2.6 (must be humble!)
+* Raspberry Pi 5 - Ubuntu 24.04 LTS
+    * Note that one should use Ubuntu 22.04 for ROS2 humble, hence we use docker
 
 
