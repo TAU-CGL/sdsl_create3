@@ -7,7 +7,7 @@ if [[ ! -d "${MAPS_DIR}" ]]; then
 	mkdir -p "${MAPS_DIR}"
 fi
 
-MAP_NAME="my_map_${date +%Y%m%d_%H%M}"
+MAP_NAME="my_map_$(date +%Y%m%d_%H%M)"
 MAP_PATH="${MAPS_DIR}/${MAP_NAME}"
 
 echo "==> Saving map to ${MAP_PATH}.{pgm,yaml}..."
