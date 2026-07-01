@@ -83,8 +83,8 @@ You **must** rename the map files to `my_map.pgm` and `my_map.yaml` as the docke
 One easy way for copying files from remote computer to RPi is via SSH:
 
 '''
-scp ~/maps/my_map.yaml user@sdslbot:~/maps/
-scp ~/maps/my_map.pgm user@sdslbot:~/maps/
+scp ~/maps/my_map.yaml user@sdslbot:~/maps/my_map.yaml
+scp ~/maps/my_map.pgm user@sdslbot:~/maps/my_map.pgm
 '''
 
 You of course may change `user@sdslbot` to your own hostname.
