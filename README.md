@@ -56,6 +56,8 @@ In this demonstration we have used the following firmware versions:
 * Raspberry Pi 5 - Ubuntu 24.04 LTS
     * Note that one should use Ubuntu 22.04 for ROS2 humble, hence we use docker
 
+We called our robot (i.e., RPi5's hostname) `sdslbot`. You may use any other name if you'd like.
+
 ## Running Docker
 
 After `git clone` for the current repository, enter the `docker` directory.   
@@ -77,3 +79,12 @@ Move the robot around the environment to gather information and build the map. Y
 When you are done mapping, run the script `scripts/save_map.sh`, which saves the map into the `~/maps` directory. The map's name will unique and will include the date and time of creation for easy archiving. Make sure to upload the map to the `~/maps` also in the Raspberry Pi.
 
 You **must** rename the map files to `my_map.pgm` and `my_map.yaml` as the dockerfile copies them to the container. These represent the "known" map that is then used for localizaiton.
+
+One easy way for copying files from remote computer to RPi is via SSH:
+
+'''
+scp ~/maps/my_map.yaml user@sdslbot:~/maps/
+scp ~/maps/my_map.pgm user@sdslbot:~/maps/
+'''
+
+You of course may change `user@sdslbot` to your own hostname.
