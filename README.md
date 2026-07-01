@@ -61,18 +61,19 @@ In this demonstration we have used the following firmware versions:
 After `git clone` for the current repository, enter the `docker` directory.   
 Make sure to add executable (`chmod +x`) to the script files `build.sh` and `run.sh`.  
 Use `build.sh` once to build the docker container. The `run.sh` opens an interactive session, from which you can run one of three scripts:
-* `run_mapping.sh` - Starts the demo in Mapping mode
-* `run_localization.sh` - Starts the demo in Localization mode
-* `run_navigation.sh` - Starts the demo in Navigation mode
+* `~/run_mapping.sh` - Starts the demo in Mapping mode
+* `~/run_localization.sh` - Starts the demo in Localization mode
+* `~/run_navigation.sh` - Starts the demo in Navigation mode
 
 See above for the description of each mode. The three scripts are created in the `Dockerfile`, and they merely call a specific ROS launchfile.
 
 ## Mapping Mode
 
+<!-- TODO: Talk about mapping RVIZ -->
 **Make sure that the LIDAR is mounted correctly (the robot's and LIDAR's centers should coincide. Also notice the orientation.**
 When running the `run_mapping.sh` script on the RPi5, we start the LIDAR node and SLAM. It may take a minute until the mapping starts.  
 Move the robot around the environment to gather information and build the map. You can use `teleop_twist_keyboard` from either the SSH session with the RPi or directly from the computer, or you can use a gamepad (e.g., XBOX Controller or DualShock 4).
 
-When you are done mapping, in a seperate SSH session on the RPi, run the script `scripts/save_map.sh`, which saves the map into the `~/maps` directory.
+When you are done mapping, run the script `scripts/save_map.sh`, which saves the map into the `~/maps` directory. The map's name will unique and will include the date and time of creation for easy archiving. Make sure to upload the map to the `~/maps` also in the Raspberry Pi.
 
-You **must** rename the map files to `map.pgm` and `map.yaml` as the dockerfile copies them to the container. These represent the "known" map that is then used for localizaiton.
+You **must** rename the map files to `my_map.pgm` and `my_map.yaml` as the dockerfile copies them to the container. These represent the "known" map that is then used for localizaiton.
