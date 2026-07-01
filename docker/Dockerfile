@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 FROM ros:humble-ros-core
 
 SHELL ["/bin/bash", "-c"]
@@ -34,6 +35,22 @@ RUN cd ~ \
 	&& make && make install \
 	&& apt-get install libglm-dev
 
+# Modify the LiDAR config in the Create3 examples
+RUN cd ~/ros_ws/src/create3_examples/create3_lidar_slam/ && << 'EOF' python3
+import re, pathlib
+p = pathlib.Path('launch/sensors_launch.py')
+content = p.read_text()
+content = re.sub(
+	r"(arguments=\[)([^]]*?)('base_footprint')",
+	lambda m: m.group(1) + "'0', '0', '0', '0', '0', '0', " + m.group(3), content)
+p.write_text(content)
+p = pathlib.Path('config/rplidar_node.yaml')
+content = p.read_text()
+content = re.sub(r'serial_baudrate: \S+', 'serial_baudrate: 470800', content)
+content = re.sub(r"scan_mode: '\S*'", "scan_mode: 'Standard'", content)
+p.write_text(content)
+EOF
+
 # Init and build dependencies 
 RUN cd ~/ros_ws \
 	&& rosdep init \
@@ -43,7 +60,7 @@ RUN cd ~/ros_ws \
 # Build the workspace
 RUN cd ~/ros_ws \
 	&& source /opt/ros/humble/setup.bash \
-	&& colcon build
+	&& colcon build --parallel-workers 3
 
 # Clean the apt lists
 RUN rm -rf /var/lib/apt/lists/*
